@@ -1,0 +1,17 @@
+<%= turbo_frame_tag "licenses" do %>
+  <section class="ms-section">
+    <h2 class="text-4xl font-bold mb-12"
+				data-controller="test"
+				data-test-ciao-value="Nice"
+		>
+      Active licenses
+    </h2>
+    <div class="space-y-12">
+      <% @licenses.each do |license| %>
+        <%= turbo_frame_tag dom_id(license) do %>
+          <%= render license %>
+        <% end %>
+      <% end %>
+    </div>
+  </section>
+<% end %>
