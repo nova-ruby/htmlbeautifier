@@ -1,40 +1,74 @@
 {
-    "identifier": "com.tommasonegri.htmlbeautifier",
-    "name": "HTML Beautifier",
-    "organization": "Tommaso Negri",
-    "description": "Lorem ipsum, dolor sit amet.",
-    "version": "1.0",
-    "categories": ["commands"],
-    
-    "main": "main.js",
-    
-    "activationEvents": [
-        "onLanguage:html"
-    ],
-    
-    "entitlements": {
-        "filesystem": "readwrite", "process": true
-    },
-    
-    "commands": {
-        "extensions": [
-            {
-                "title": "Open URL",
-                "command": "html-beautifier.openURL"
-            },
-            {
-                "title": "Run External Tool",
-                "command": "html-beautifier.runExternalTool"
-            }
-        ]
-    },
-    
-    "config": [
-        {
-            "key": "html-beautifier.foobar",
-            "title": "Foo the bar",
-            "type": "boolean",
-            "default": false
-        }
-    ]
+	"identifier": "com.tommasonegri.htmlbeautifier",
+	"name": "HTML Beautifier",
+	"organization": "Tommaso Negri",
+	"description": "Lorem ipsum, dolor sit amet.",
+	"version": "1.0",
+	"categories": ["formatters"],
+
+	"main": "main.js",
+
+	"activationEvents": [
+		"onLanguage:html+erb",
+		"onWorkspaceContains:*.erb"
+	],
+
+	"entitlements": {
+		"filesystem": "readwrite",
+		"process": true
+	},
+
+	"commands": {
+		"editor": [
+			{
+				"title": "Format Document",
+				"command": "tommasonegri.htmlbeautifier.format",
+				"when": "editorHasFocus && editorHasSelection && editorSyntax == 'html+erb'"
+			},
+			{
+				"title": "Save Without Formatting",
+				"command": "tommasonegri.htmlbeautifier.saveWithoutFormatting",
+				"when": "editorHasFocus && editorHasSelection && editorSyntax == 'html+erb'"
+			}
+		]
+	},
+
+	"config": [
+		{
+			"key": "tommasonegri.htmlbeautifier.commandPath",
+			"title": "Command Path",
+			"description": "Path to the HTML Beautifier command. Set this to an absolute path to select from multiple installed Ruby versions.",
+			"type": "path",
+			"default": "htmlbeautifier"
+		},
+		{
+			"key": "tommasonegri.htmlbeautifier.formatOnSave",
+			"title": "Format on save",
+			"description": "Enable the format on save behavior.",
+			"type": "boolean",
+			"default": true
+		}
+	],
+
+	"configWorkspace": [
+		{
+			"key": "tommasonegri.htmlbeautifier.commandPath",
+			"title": "Command Path",
+			"description": "Path to the HTML Beautifier command. Set this to an absolute path to select from multiple installed Ruby versions.",
+			"type": "path"
+		},
+		{
+			"key": "tommasonegri.htmlbeautifier.formatOnSave",
+			"title": "Format on save",
+			"description": "Enable the format on save behavior.",
+			"type": "enum",
+			"values": [
+				["", "Global default"],
+				["false", "Disabled"],
+				["true", "Enabled"]
+			],
+			"radio": false,
+			"default": ""
+		}
+	]
 }
