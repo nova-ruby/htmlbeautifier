@@ -1,72 +1,20 @@
-<!--
-👋 Hello! As Nova users browse the extensions library, a good README can help them understand what your extension does, how it works, and what setup or configuration it may require.
+<p align="center">
+	<img src="https://raw.githubusercontent.com/nova-ruby/htmlbeautifier/main/misc/extension.png" width="80" height="80">
+</p>
+<h1 align="center">HTML Beautifier for Nova</h1>
 
-Not every extension will need every item described below. Use your best judgement when deciding which parts to keep to provide the best experience for your new users.
-
-💡 Quick Tip! As you edit this README template, you can preview your changes by selecting **Extensions → Activate Project as Extension**, opening the Extension Library, and selecting "HTML Beautifier" in the sidebar.
-
-Let's get started!
--->
-
-<!--
-🎈 Include a brief description of the features your extension provides. For example:
--->
-
-**HTML Beautifier** provides integration with **A Helpful Tool**, including the most important feature, something that's really helpful, and _a little-known secret!_
-
-<!--
-🎈 It can also be helpful to include a screenshot or GIF showing your extension in action:
--->
-
-![](https://nova.app/images/en/dark/editor.png)
+A normaliser/beautifier for HTML that also understands embedded Ruby. Ideal for tidying up Rails templates. Learn more on the [HTML Beautifier](https://github.com/threedaymonk/htmlbeautifier) GitHub page.
 
 ## Requirements
 
-<!--
-🎈 If your extension depends on external processes or tools that users will need to have, it's helpful to list those and provide links to their installers:
--->
+The extension requires [HTML Beautifier](https://github.com/threedaymonk/htmlbeautifier) to be installed on your Mac and globally available:
 
-HTML Beautifier requires some additional tools to be installed on your Mac:
-
-- [Node.js 8.2.0](https://nodejs.org) and NPM 5.2.0 or newer
-
-<!--
-✨ Providing tips, tricks, or other guides for installing or configuring external dependencies can go a long way toward helping your users have a good setup experience:
--->
-
-> To install the current stable version of Node, click the "Recommended for Most Users" button to begin the download. When that completes, double-click the **.pkg** installer to begin installation.
+```
+$ gem install htmlbeautifier
+```
 
 ## Usage
 
-<!--
-🎈 If users will interact with your extension manually, describe those options:
--->
+By default HTML Beautifier will format your `.erb` files on save. You can disable this behavior from the extension or workspace settings.
 
-To run HTML Beautifier:
-
-- Select the **Editor → HTML Beautifier** menu item; or
-- Open the command palette and type `HTML Beautifier`
-
-<!--
-🎈 Alternatively, if your extension runs automatically (as in the case of a validator), consider showing users what they can expect to see:
--->
-
-HTML Beautifier runs any time you open a local project, automatically lints all open files, then reports errors and warnings in Nova's **Issues** sidebar and the editor gutter:
-
-![](https://nova.app/images/en/light/tools/sidebars.png)
-
-### Configuration
-
-<!--
-🎈 If your extension offers global- or workspace-scoped preferences, consider pointing users toward those settings. For example:
--->
-
-To configure global preferences, open **Extensions → Extension Library...** then select HTML Beautifier's **Preferences** tab.
-
-You can also configure preferences on a per-project basis in **Project → Project Settings...**
-
-<!--
-👋 That's it! Happy developing!
-
-P.S. If you'd like, you can remove these comments before submitting your extension 😉
--->
+You can also manually format the code with the `Format Document` command of the editor.
