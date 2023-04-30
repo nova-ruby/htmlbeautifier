@@ -1,0 +1,40 @@
+{
+    "identifier": "com.tommasonegri.htmlbeautifier",
+    "name": "HTML Beautifier",
+    "organization": "Tommaso Negri",
+    "description": "Lorem ipsum, dolor sit amet.",
+    "version": "1.0",
+    "categories": ["commands"],
+    
+    "main": "main.js",
+    
+    "activationEvents": [
+        "onLanguage:html"
+    ],
+    
+    "entitlements": {
+        "filesystem": "readwrite", "process": true
+    },
+    
+    "commands": {
+        "extensions": [
+            {
+                "title": "Open URL",
+                "command": "html-beautifier.openURL"
+            },
+            {
+                "title": "Run External Tool",
+                "command": "html-beautifier.runExternalTool"
+            }
+        ]
+    },
+    
+    "config": [
+        {
+            "key": "html-beautifier.foobar",
+            "title": "Foo the bar",
+            "type": "boolean",
+            "default": false
+        }
+    ]
+}
