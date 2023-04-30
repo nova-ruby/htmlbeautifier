@@ -2,9 +2,14 @@
 	"identifier": "com.tommasonegri.htmlbeautifier",
 	"name": "HTML Beautifier",
 	"organization": "Tommaso Negri",
-	"description": "Lorem ipsum, dolor sit amet.",
+	"description": "A normaliser/beautifier for HTML that also understands embedded Ruby.",
 	"version": "1.0",
 	"categories": ["formatters"],
+
+	"license": "MIT",
+	"repository": "https://github.com/nova-ruby/htmlbeautifier",
+	"bugs": "https://github.com/nova-ruby/htmlbeautifier/issues",
+	"funding": "https://www.paypal.com/paypalme/tommasonegri/25EUR",
 
 	"main": "main.js",
 
@@ -14,7 +19,6 @@
 	],
 
 	"entitlements": {
-		"filesystem": "readwrite",
 		"process": true
 	},
 
@@ -76,6 +80,12 @@
 			],
 			"radio": false,
 			"default": ""
+		},
+		{
+			"key": "tommasonegri.htmlbeautifier.keepBlankLines",
+			"title": "Allowed Blank Lines",
+			"description": "Set the number of allowed consecutive blank lines.",
+			"type": "number"
 		}
 	]
 }
