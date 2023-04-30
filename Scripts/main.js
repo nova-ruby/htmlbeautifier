@@ -2,6 +2,7 @@ const htmlbeautifier = require("./utils/index")
 const { configFor, applyTextEdit } = require("./helpers")
 
 let skipFormatOnSave = false
+let triggeredByFormat = false
 
 /** @type {Disposable[]} */
 const formatOnSaveEventHandlers = []
@@ -15,15 +16,18 @@ exports.activate = function() {
 		const didAddTextEditorHandler = nova.workspace.onDidAddTextEditor((editor) => {
 			if (!htmlbeautifier.SYNTAXES.includes(editor.document.syntax)) return
 
-			const willSaveHandler = editor.onWillSave(async (editor) => {
-				await nova.commands.invoke("tommasonegri.htmlbeautifier._format", editor)
+			const didSaveHandler = editor.onDidSave(async (editor) => {
+				if (!triggeredByFormat) {
+					nova.commands.invoke("tommasonegri.htmlbeautifier._format", editor)
+					triggeredByFormat = false
+				}
 			})
 
 			const didDestroyHandler = editor.onDidDestroy(() => {
-				willSaveHandler.dispose()
+				didSaveHandler.dispose()
 			})
 
-			formatOnSaveEventHandlers.push(willSaveHandler)
+			formatOnSaveEventHandlers.push(didSaveHandler)
 			formatOnSaveEventHandlers.push(didDestroyHandler)
 		})
 
@@ -51,19 +55,27 @@ nova.subscriptions.add(
 
 // Internal format command
 nova.subscriptions.add(
-	nova.commands.register("tommasonegri.htmlbeautifier._format", async (_, editor) => {
+	nova.commands.register("tommasonegri.htmlbeautifier._format", /** @param {TextEditor} editor */ async (_, editor) => {
 		if (skipFormatOnSave) {
 			skipFormatOnSave = false
 			return
 		}
 
 		try {
-			const path           = nova.workspace.relativizePath(editor.document.path)
-			const commandArgs    = ["<", path.toString()]
 			const config         = htmlbeautifier.config
+			const commandArgs    = []
+			if (!editor.softTabs) commandArgs.push("--tab")
+			if (editor.softTabs)  commandArgs.push(`--tab-stops=${editor.tabLength}`)
+			commandArgs.push(`--keep-blank-lines=${configFor(htmlbeautifier.config.htmlbeautifier.get("keepBlankLines"))}`)
+			commandArgs.push("<")
+			commandArgs.push(nova.workspace.relativizePath(editor.document.path).toString())
+
 			const beautifiedText = await htmlbeautifier.commands.htmlbeautifier(commandArgs, config)
 
-			applyTextEdit(editor, beautifiedText)
+			await applyTextEdit(editor, beautifiedText)
+
+			triggeredByFormat = true
+			editor.save()
 		} catch (error) {
 			console.error(error)
 		}
@@ -75,6 +87,7 @@ nova.subscriptions.add(
 // Format command
 nova.subscriptions.add(
 	nova.commands.register("tommasonegri.htmlbeautifier.format", (editor) => {
+		editor.save()
 		nova.commands.invoke("tommasonegri.htmlbeautifier._format", editor)
 	})
 )

@@ -43,10 +43,17 @@
 		},
 		{
 			"key": "tommasonegri.htmlbeautifier.formatOnSave",
-			"title": "Format on save",
+			"title": "Format on Save",
 			"description": "Enable the format on save behavior.",
 			"type": "boolean",
 			"default": true
+		},
+		{
+			"key": "tommasonegri.htmlbeautifier.keepBlankLines",
+			"title": "Allowed Blank Lines",
+			"description": "Set the number of allowed consecutive blank lines.",
+			"type": "number",
+			"default": 0
 		}
 	],
 
